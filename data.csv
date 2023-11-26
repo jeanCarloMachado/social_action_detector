@@ -1,4 +1,4 @@
-Description,Label
+description,label
 "Community Workshop on Energy Efficiency: A workshop aimed at educating residents about energy-saving practices.", 1
 "Celebrity Launches New Fragrance Line: A famous celebrity launches their own line of exclusive fragrances.", 0
 "Charity Run for Mental Health Awareness: Organizing a charity run to raise awareness and funds for mental health.", 1
@@ -35,7 +35,6 @@ Description,Label
 "Celebrity Autobiography Release and Book Tour: A celebrity releases their autobiography and announces a book tour.", 0
 "Local River Conservation Efforts: Efforts by community groups to conserve and protect a local river ecosystem.", 1
 "Reality TV Star's Fashion Week Debut: A reality TV star debuts on the runway at a major fashion week event.", 0
-"Educational Program for Sustainable Living: An educational program
 "Health Awareness Campaign for Heart Disease: A local health organization launches a campaign to raise awareness about heart disease.", 1
 "Major Update to Popular Software Suite: A tech company releases a major update to its popular office software suite.", 0
 "Youth Sports Clinic for Underprivileged Children: A free sports clinic is organized for underprivileged children to promote physical activity.", 1
@@ -140,6 +139,3 @@ Description,Label
 "New Method for Plastic Recycling: A breakthrough in plastic recycling could drastically reduce pollution.", 0
 "Volunteer Firefighters Honored: The community is honoring its volunteer firefighters with a special ceremony.", 1
 "Discovery of a New Comet: Astronomers have discovered a new comet passing close to Earth.", 0
-
-
-
