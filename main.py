@@ -17,3 +17,8 @@ class BinaryClassification(nn.Module):
        outputs = self.linear(outputs)
 
        return outputs
+
+
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
