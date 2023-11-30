@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score
 import torch.nn as nn
 import config
 
-def train(*, epochs: int = 10, push_model=False):
+def train(*, epochs: int = 10):
 
     if type(epochs) == str:
         epochs = int(epochs)
@@ -23,7 +23,7 @@ def train(*, epochs: int = 10, push_model=False):
     # Load the dataset from the CSV file
     data = pd.read_csv('data/data.csv')
     descriptions = data['description'].tolist()
-    print('Dataset size', len(descriptions))
+    print('Dataset size: ', len(descriptions))
     labels = data['label'].tolist()
 
     # Tokenize the input data
@@ -75,8 +75,9 @@ def train(*, epochs: int = 10, push_model=False):
 
     # Train the model
     trainer.train()
+    trainer.model.save_pretrained(config.LOCAL_MODEL_NAME)
     tokenizer.save_pretrained(config.LOCAL_MODEL_NAME)
-
+    print('Model trained and saved locally in the "results" folder!')
 
 def push_to_hub():
     model, tokenizer = load_model()
@@ -87,6 +88,7 @@ def push_to_hub():
 
 def load_model(use_local=True):
     model_name = config.LOCAL_MODEL_NAME if use_local else config.FULL_MODEL_NAME
+    print("loading model: ", model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     return model, tokenizer
