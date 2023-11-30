@@ -12,12 +12,7 @@ import pandas as pd
 from datasets import Dataset
 from sklearn.metrics import accuracy_score
 import torch.nn as nn
-
-# Define the model
-
-MODEL_NAME = 'social_good_detector'
-FULL_MODEL_NAME = 'JeanMachado/social_good_detector'
-LOCAL_MODEL_NAME = 'results'
+import config
 
 def train(*, epochs: int = 10, push_model=False):
 
@@ -80,21 +75,25 @@ def train(*, epochs: int = 10, push_model=False):
 
     # Train the model
     trainer.train()
-    tokenizer.save_pretrained(LOCAL_MODEL_NAME)
-    if push_model:
-        trainer.model.push_to_hub(MODEL_NAME)
-        tokenizer.push_to_hub(MODEL_NAME)
+    tokenizer.save_pretrained(config.LOCAL_MODEL_NAME)
+
+
+def push_to_hub():
+    model, tokenizer = load_model()
+    model.push_to_hub(config.MODEL_NAME)
+    tokenizer.push_to_hub(config.MODEL_NAME)
+    print('Model pushed to the hub!')
 
 
 def load_model(use_local=True):
-    model_name = LOCAL_MODEL_NAME if use_local else FULL_MODEL_NAME
+    model_name = config.LOCAL_MODEL_NAME if use_local else config.FULL_MODEL_NAME
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
-    return model
+    return model, tokenizer
 
 def predict(description: str =  'a startup is creating a concept to turn poverty into history', use_local=True):
-    model_name = LOCAL_MODEL_NAME if use_local else FULL_MODEL_NAME
+    model_name = config.LOCAL_MODEL_NAME if use_local else config.FULL_MODEL_NAME
     model = load_model()
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
     print("predicting if it is a social good content")
     tokenized_inputs = tokenizer(description, padding=True, truncation=True, max_length=512, return_tensors='pt')
     input_ids = tokenized_inputs['input_ids']
