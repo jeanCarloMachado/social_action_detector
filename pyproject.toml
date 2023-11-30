@@ -6,7 +6,7 @@ authors = ["Jean Carlo Machado <jean.machado@getyourguide.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "3.10.*"
 transformers = "^4.35.2"
 fire = "^0.5.0"
 torch = "^2.1.1"
