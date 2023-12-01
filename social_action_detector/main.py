@@ -26,12 +26,12 @@ def load_model(model_name):
     return model, tokenizer
 
 def predict(description: str =  'a startup is creating a concept to turn poverty into history', model = None, tokenizer = None):
-
+    print("predicting if it is a social good content")
     if model is None or tokenizer is None:
         model_name = config.LOCAL_MODEL_NAME
+        print("loading model", model_name)
         model, tokenizer = load_model(model_name)
 
-    print("predicting if it is a social good content for model ", model_name)
 
     tokenized_inputs = tokenizer(description, padding=True, truncation=True, max_length=512, return_tensors='pt')
     input_ids = tokenized_inputs['input_ids']
