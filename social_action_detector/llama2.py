@@ -100,3 +100,5 @@ def train_llama(epochs=1):
     tokenizer.save_pretrained("results_llama", safe_serialization=True)
 
     print("Model trained and saved locally in the 'results_llama' folder!")
+
+    return trainer.model, tokenizer
