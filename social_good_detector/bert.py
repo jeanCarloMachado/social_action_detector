@@ -21,7 +21,7 @@ def train_bert(epochs = 3):
     print(" epochs: ", epochs)
 
     # Load the dataset from the CSV file
-    data = pd.read_csv('data/data.csv')
+    data = pd.read_csv('../data/data.csv')
     descriptions = data['description'].tolist()
     print('Dataset size: ', len(descriptions))
     labels = data['label'].tolist()

@@ -1,17 +1,8 @@
 
 import torch
-from transformers import AutoTokenizer, Trainer, TrainingArguments
-from datasets import load_dataset
-import pandas as pd
-from datasets import Dataset
-from sklearn.metrics import accuracy_score
+from transformers import AutoTokenizer
 import torch
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
-from datasets import load_dataset
-import pandas as pd
-from datasets import Dataset
-from sklearn.metrics import accuracy_score
-import torch.nn as nn
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import config
 from bert import train_bert
 from llama2 import train_llama
@@ -34,7 +25,7 @@ def load_model(use_local=True):
 
 def predict(description: str =  'a startup is creating a concept to turn poverty into history', use_local=True):
     model_name = config.LOCAL_MODEL_NAME if use_local else config.FULL_MODEL_NAME
-    model = load_model()
+    model, tokenizer = load_model()
     print("predicting if it is a social good content")
     tokenized_inputs = tokenizer(description, padding=True, truncation=True, max_length=512, return_tensors='pt')
     input_ids = tokenized_inputs['input_ids']
