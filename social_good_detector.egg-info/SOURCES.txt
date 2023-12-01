@@ -1,0 +1,6 @@
+README.md
+setup.py
+social_good_detector.egg-info/PKG-INFO
+social_good_detector.egg-info/SOURCES.txt
+social_good_detector.egg-info/dependency_links.txt
+social_good_detector.egg-info/top_level.txt

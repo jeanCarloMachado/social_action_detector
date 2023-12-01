@@ -3,3 +3,4 @@
 results
 activate/*
 __pycache__/*
+.egg-info
