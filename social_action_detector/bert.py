@@ -1,27 +1,19 @@
 
 import torch
-from transformers import AutoTokenizer, Trainer, TrainingArguments
-from datasets import load_dataset
-import pandas as pd
-from datasets import Dataset
-from sklearn.metrics import accuracy_score
-import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
-from datasets import load_dataset
 import pandas as pd
 from datasets import Dataset
-from sklearn.metrics import accuracy_score
-import torch.nn as nn
-import config
+from social_action_detector import config
 
 
-def train_bert(epochs = 3):
+
+def train_bert(epochs = 1):
     if type(epochs) == str:
         epochs = int(epochs)
     print(" epochs: ", epochs)
 
     # Load the dataset from the CSV file
-    data = pd.read_csv('../data/data.csv')
+    data = pd.read_csv('data/data.csv')
     descriptions = data['description'].tolist()
     print('Dataset size: ', len(descriptions))
     labels = data['label'].tolist()

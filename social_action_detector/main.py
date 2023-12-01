@@ -1,11 +1,9 @@
 
 import torch
-from transformers import AutoTokenizer
-import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-import config
-from bert import train_bert
-from llama2 import train_llama
+from social_action_detector import config
+from social_action_detector.bert import train_bert
+from social_action_detector.llama2 import train_llama
 
 train = train_bert
 
