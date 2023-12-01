@@ -3,6 +3,7 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from social_action_detector import config
 from social_action_detector.bert import train_bert
+from social_action_detector.dataset import get_dataset
 from social_action_detector.llama2 import train_llama
 
 train = train_bert
@@ -13,6 +14,10 @@ def push_to_hub():
     tokenizer.push_to_hub(config.MODEL_NAME)
     print('Model pushed to the hub!')
 
+
+def push_data_to_hub():
+
+    dataset = get_dataset()
 
 def load_model(use_local=True):
     model_name = config.LOCAL_MODEL_NAME if use_local else config.FULL_MODEL_NAME

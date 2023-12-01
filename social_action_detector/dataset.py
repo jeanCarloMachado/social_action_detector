@@ -1,13 +1,12 @@
 import pandas as pd
 import torch
-from datasets import Dataset
+from datasets import Dataset, load_dataset
 
 
 def get_dataset(tokenizer):
-    data = pd.read_csv('data/data.csv')
-    descriptions = data['description'].tolist()
+    descriptions = load_from_hub()['train']['description']
     print('Dataset size: ', len(descriptions))
-    labels = data['label'].tolist()
+    labels = load_from_hub()['train']['label']
 
     tokenized_inputs = tokenizer(descriptions, padding=True, truncation=True, max_length=512, return_tensors='pt')
     # Prepare the dataset
@@ -30,3 +29,15 @@ def get_dataset(tokenizer):
     print("Valuation dataset size", len(val_dataset))
 
     return train_dataset, val_dataset
+
+
+def load_from_hub():
+    print("loading dataset from hub")
+    dataset = load_dataset('JeanMachado/social_action_articles')
+
+    return dataset
+
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
+
