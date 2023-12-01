@@ -3,6 +3,8 @@ import torch
 
 def train_llama(epochs=1):
     # Create the model
+
+    print(" epochs: ", epochs)
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, AutoTokenizer
 
@@ -53,7 +55,6 @@ def train_llama(epochs=1):
     #max_steps = 50
     warmup_ratio = 0.03
     lr_scheduler_type = "cosine"
-    epochs = 1
 
     training_arguments = TrainingArguments(
         output_dir=output_dir,
