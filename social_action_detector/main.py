@@ -19,20 +19,28 @@ def push_data_to_hub():
 
     dataset = get_dataset()
 
+
+def load_bert():
+    model, tokenizer = load_model(config.MODEL_NAME)
+    return model, tokenizer
+
+
+def load_llamma():
+    model_name = 'JeanMachado/social_good_detector_llama13b'
+    model, tokenizer = load_model(model_name)
+    return model, tokenizer
 def load_model(model_name):
     print("loading model: ", model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     return model, tokenizer
 
-def predict(description: str =  'a startup is creating a concept to turn poverty into history', model = None, tokenizer = None):
+def predict(description: str =  'a startup is creating a concept to turn poverty into history', model = None, tokenizer = None, model_name=None):
     print("predicting if it is a social good content")
     if model is None or tokenizer is None:
-        model_name = config.LOCAL_MODEL_NAME
+        model_name = config.LOCAL_MODEL_NAME if model_name is None else model_name
         print("loading model", model_name)
         model, tokenizer = load_model(model_name)
-
-
     tokenized_inputs = tokenizer(description, padding=True, truncation=True, max_length=512, return_tensors='pt')
     input_ids = tokenized_inputs['input_ids']
     attention_mask = tokenized_inputs['attention_mask']
