@@ -77,6 +77,9 @@ def train_llama(epochs=1):
 
     max_seq_length = 1024
 
+    from social_action_detector.dataset import get_dataset
+    dataset, _ = get_dataset(tokenizer)
+
     trainer = SFTTrainer(
         model=model,
         train_dataset=dataset,

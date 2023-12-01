@@ -1,10 +1,6 @@
-
-import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
-import pandas as pd
-from datasets import Dataset
 from social_action_detector import config
-
+from social_action_detector.dataset import get_dataset
 
 
 def train_bert(epochs = 1):
@@ -13,33 +9,11 @@ def train_bert(epochs = 1):
     print(" epochs: ", epochs)
 
     # Load the dataset from the CSV file
-    data = pd.read_csv('data/data.csv')
-    descriptions = data['description'].tolist()
-    print('Dataset size: ', len(descriptions))
-    labels = data['label'].tolist()
 
     # Tokenize the input data
     tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
-    tokenized_inputs = tokenizer(descriptions, padding=True, truncation=True, max_length=512, return_tensors='pt')
+    train_dataset, val_dataset = get_dataset(tokenizer)
 
-    # Prepare the dataset
-    input_ids = tokenized_inputs['input_ids']
-    attention_mask = tokenized_inputs['attention_mask']
-
-    # Create a dictionary with the input data
-    data_dict = {
-        'input_ids': input_ids,
-        'attention_mask': attention_mask,
-        'labels': labels
-    }
-
-    # Create the dataset
-    dataset = Dataset.from_dict(data_dict)
-
-    # Split the dataset into training and validation sets
-    train_size = int(0.8 * len(dataset))
-    train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, len(dataset) - train_size])
-    print("Valuation dataset size", len(val_dataset))
 
     # Define the model
     model = AutoModelForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
