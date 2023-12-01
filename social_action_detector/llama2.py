@@ -98,4 +98,4 @@ def train_llama(epochs=1):
     trainer.model.save_pretrained("results_llama", safe_serialization=True)
     tokenizer.save_pretrained("results_llama", safe_serialization=True)
 
-    pritn("Model trained and saved locally in the 'results_llama' folder!")
+    print("Model trained and saved locally in the 'results_llama' folder!")
