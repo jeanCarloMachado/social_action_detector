@@ -4,7 +4,7 @@ import torch
 def train_llama(epochs=1):
     # Create the model
 
-    print(" epochs: ", epochs)
+    print(" Starting to train llama 13b on epochs: ", epochs)
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, AutoTokenizer
 
