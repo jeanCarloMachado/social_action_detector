@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 RUN pip install -e .
 
 
-CMD ["python", "handler.py"]
+CMD ["python", "web.py"]
