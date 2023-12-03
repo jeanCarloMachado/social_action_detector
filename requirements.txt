@@ -1,12 +1,10 @@
 transformers
 datasets
 peft
-bitsandbytes
 safetensors
-trl
 peft -i git+https://github.com/huggingface/peft.git
 torch
 scipy
 scikit-learn
- -i https://test.pypi.org/simple bitsandbytes
+bitsandbytes -i https://test.pypi.org/simple
 accelerate
