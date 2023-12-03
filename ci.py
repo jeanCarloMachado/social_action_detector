@@ -6,13 +6,28 @@ def run_cmd(cmd):
     os.system(cmd)
 
 
-IMAGE = 'jeancarlomachado/social_good_detector:latest'
+DOCKER_IMAGE = 'jeancarlomachado/social_good_detector:latest'
+ECR_IMAGE = 'public.ecr.aws/l3h8t5t4/social-good-detector:latest'
+IMAGE = ECR_IMAGE
+LOCAL_NAME = 'social_good_detector:latest'
+
 def push_ecr():
-    run_cmd(f"docker push {IMAGE}")
+    build(ECR_IMAGE)
+    run_cmd(f"docker push {ECR_IMAGE}")
+
+def build(tag=LOCAL_NAME):
+    run_cmd(f"docker build --platform=linux/amd64 -t {tag} .")
 
 def build_and_push():
-    run_cmd(f"docker build -t {IMAGE} .")
+    build()
     push_ecr()
+
+def build_and_run():
+    build()
+    run()
+
+def run():
+    run_cmd(f"docker run -p 8080:80 {LOCAL_NAME}")
 
 
 
