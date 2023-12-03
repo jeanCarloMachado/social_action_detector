@@ -26,7 +26,7 @@ def load_bert():
 
 
 def load_llamma():
-    model_name = 'JeanMachado/social_good_detector_llama13b'
+    model_name = config.LLAMA_MODEL_NAME
     model, tokenizer = load_model(model_name)
     return model, tokenizer
 def load_model(model_name):
