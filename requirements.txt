@@ -8,3 +8,5 @@ scipy
 scikit-learn
 bitsandbytes -i https://test.pypi.org/simple
 accelerate
+trl
+fire
