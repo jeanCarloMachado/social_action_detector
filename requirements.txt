@@ -4,10 +4,9 @@ peft
 bitsandbytes
 safetensors
 trl
--i  git+https://github.com/huggingface/accelerate accelerate
 peft -i git+https://github.com/huggingface/peft.git
 torch
 scipy
 scikit-learn
  -i https://test.pypi.org/simple bitsandbytes
-
+accelerate
