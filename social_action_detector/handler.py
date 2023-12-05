@@ -15,8 +15,7 @@ class EndpointHandler():
 
         self.path = path
         print("Login in")
-        os.system('huggingface-cli login --token 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')
-        model_name = 'JeanMachado/social_good_detector_llama13b'
+        model_name  = path
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForSequenceClassification.from_pretrained(model_name)
         self.model = model
