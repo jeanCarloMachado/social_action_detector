@@ -43,7 +43,7 @@ def predict_bert(description: str):
     return predict(description, model_name=config.BERT_REMOTE_MODEL_NAME)
 
 def predict(description: str =  'a startup is creating a concept to turn poverty into history', model = None, tokenizer = None, model_name=None):
-    print("predicting if it is a social good content")
+    print("predicting if it is a social good: ", description)
     if model is None or tokenizer is None:
         model, tokenizer = load_model(model_name)
 
@@ -52,6 +52,7 @@ def predict(description: str =  'a startup is creating a concept to turn poverty
     attention_mask = tokenized_inputs['attention_mask']
     outputs = model(input_ids, attention_mask=attention_mask)
     _, predicted = torch.max(outputs.logits, dim=1)
+    print("predicted: ", predicted.item())
     return predicted.item()
 
 

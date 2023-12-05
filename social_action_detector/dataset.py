@@ -4,9 +4,9 @@ from datasets import Dataset, load_dataset
 
 
 def get_dataset(tokenizer):
-    descriptions = load_from_hub()['train']['description']
+    descriptions = load_train_data_from_hub()['train']['description']
     print('Dataset size: ', len(descriptions))
-    labels = load_from_hub()['train']['label']
+    labels = load_train_data_from_hub()['train']['label']
 
     tokenized_inputs = tokenizer(descriptions, padding=True, truncation=True, max_length=512, return_tensors='pt')
     # Prepare the dataset
@@ -31,9 +31,16 @@ def get_dataset(tokenizer):
     return train_dataset, val_dataset
 
 
-def load_from_hub():
+def load_train_data_from_hub():
     print("loading dataset from hub")
-    dataset = load_dataset('JeanMachado/social_action_articles')
+    dataset = load_dataset('JeanMachado/social_action_articles', data_files="data.csv")
+
+    return dataset
+
+def load_evaluation_data_from_hub():
+    print("loading dataset from hub")
+    dataset = load_dataset('JeanMachado/social_action_articles', data_files="holdout.csv")
+    print ("Evaluation dataset size", len(dataset['train']))
 
     return dataset
 
