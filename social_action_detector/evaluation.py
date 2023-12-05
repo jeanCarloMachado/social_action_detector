@@ -1,26 +1,37 @@
 from social_action_detector import config
-from social_action_detector.dataset import load_train_data_from_hub, load_evaluation_data_from_hub
-from social_action_detector.main import predict, load_model
+from social_action_detector.dataset import , load_evaluation_data_from_hub
 
 
-def compute(model_name = None):
-    if not model_name:
-        model_name = config.BERT_REMOTE_MODEL_NAME
+def compute_gpt4():
+    from social_action_detector.gpt4 import predict
+    compute(model_name="gpt-4", predict_function=predict)
 
-    model, tokenizer = load_model(model_name)
+
+
+def compute(model_name = None, predict_function=None):
     dataset = load_evaluation_data_from_hub()
     print(dataset)
 
+
+    if not predict_function:
+        from social_action_detector.main import predict
+        if not model_name:
+            model_name = config.BERT_REMOTE_MODEL_NAME
+
+        predict_function = lambda description: predict(description, model_name=model_name)
+
+
+
     accurate = 0
     for row in dataset['train']:
-        result = predict(row['description'], model=model, tokenizer=tokenizer)
+        result = predict_function(row['description'])
         if result == row['label']:
             accurate += 1
         else:
-            print("Wrong prediction: predicted {result}, actual: {row['label']}")
+            print(f"Wrong prediction: predicted {result}, actual: {row['label']}")
 
 
-    print("Accuracy: ", accurate / len(dataset['train']))
+    print("Final Accuracy: ", accurate / len(dataset['train']))
 
 
 

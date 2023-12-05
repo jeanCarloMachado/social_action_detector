@@ -12,3 +12,4 @@ trl
 fire
 fastapi
 uvicorn[standard]
+openai
