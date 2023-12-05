@@ -2,7 +2,6 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trai
 from social_action_detector import config
 from social_action_detector.dataset import get_dataset
 
-
 def train_bert(epochs = 1):
     if type(epochs) == str:
         epochs = int(epochs)

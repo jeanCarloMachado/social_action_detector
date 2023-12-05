@@ -10,8 +10,8 @@ train = train_bert
 
 def push_to_hub():
     model, tokenizer = load_model(config.LOCAL_MODEL_NAME)
-    model.push_to_hub(config.MODEL_NAME)
-    tokenizer.push_to_hub(config.MODEL_NAME)
+    model.push_to_hub(config.BERT_MODEL_NAME)
+    tokenizer.push_to_hub(config.BERT_MODEL_NAME)
     print('Model pushed to the hub!')
 
 
@@ -21,7 +21,7 @@ def push_data_to_hub():
 
 
 def load_bert():
-    model, tokenizer = load_model(config.MODEL_NAME)
+    model, tokenizer = load_model(config.BERT_MODEL_NAME)
     return model, tokenizer
 
 
@@ -38,10 +38,14 @@ def load_model(model_name = None):
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     return model, tokenizer
 
+
+def predict_bert(description: str):
+    return predict(description, model_name=config.BERT_REMOTE_MODEL_NAME)
+
 def predict(description: str =  'a startup is creating a concept to turn poverty into history', model = None, tokenizer = None, model_name=None):
     print("predicting if it is a social good content")
     if model is None or tokenizer is None:
-        model, tokenizer = load_model()
+        model, tokenizer = load_model(model_name)
 
     tokenized_inputs = tokenizer(description, padding=True, truncation=True, max_length=512, return_tensors='pt')
     input_ids = tokenized_inputs['input_ids']
