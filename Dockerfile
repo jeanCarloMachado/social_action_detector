@@ -13,5 +13,4 @@ RUN pip install -r requirements.txt
 RUN pip install -e .
 RUN huggingface-cli login --token $HUGGINGFACE_TOKEN && huggingface-cli download 'JeanMachado/social_good_detector'
 
-
 CMD [ "python", "start_webserver.py"]
